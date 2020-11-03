@@ -1,0 +1,4 @@
+﻿{
+  "DataProvider": "sqlserver",
+  "DataConnectionString": "Data Source=.\\sqlexpress;Initial Catalog=SunniFarmDB;Persist Security Info=True;User ID=sa;Password=nh@tnguy3n"
+}

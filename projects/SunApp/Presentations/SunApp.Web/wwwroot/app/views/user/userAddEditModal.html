@@ -1,0 +1,125 @@
+﻿<div class="modal-content">
+    <form name="form">
+        <div class="modal-header">
+            <button type="button"
+                    class="close"
+                    ng-click="cancel()"
+                    data-dismiss="modal"
+                    aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title">{{headerText}}</h4>
+        </div>
+        <div class="modal-body">
+            <div class="form-horizontal">
+
+                <div class="form-group">
+                    <label for="inputEmail" class="col-lg-3 control-label">Full Name</label>
+                    <div class="col-lg-8">
+                        <input type="text"
+                               name="fullname"
+                               class="form-control"
+                               ng-model="user.fullName"
+                               ng-required="true">
+                        <span ng-messages="form.fullname.$error" class="help-block help-block-error">
+                            <ng-messages-include src="app/views/messages/messages_error.html"></ng-messages-include>
+                        </span>
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail" class="col-lg-3 control-label">User Name</label>
+                    <div class="col-lg-8">
+                        <input type="text"
+                               name="username"
+                               class="form-control"
+                               ng-model="user.userName"
+                               check-existed-username
+                               data-userid="user.id"
+                               ng-required="true">
+                        <span ng-messages="form.username.$error" class="help-block help-block-error">
+                            <ng-messages-include src="app/views/messages/messages_error.html"></ng-messages-include>
+                        </span>
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail" class="col-lg-3 control-label">Email</label>
+                    <div class="col-lg-8">
+                        <input type="email"
+                               name="email"
+                               class="form-control"
+                               ng-model="user.email"
+                               ng-required="true">
+                        <span ng-messages="form.email.$error" class="help-block help-block-error">
+                            <ng-messages-include src="app/views/messages/messages_error.html"></ng-messages-include>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group" ng-if="user.id == 0">
+                    <label for="inputEmail" class="col-lg-3 control-label">Password</label>
+                    <div class="col-lg-8">
+                        <input type="password"
+                               name="password"
+                               class="form-control"
+                               ng-model="user.password"
+                               ng-pattern="/^(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{6,20}$/"
+                               ng-required="true">
+                        <span ng-messages="form.password.$error" class="help-block help-block-error">
+                            <ng-messages-include src="app/views/messages/messages_error.html"></ng-messages-include>
+                        </span>
+                        
+                    </div>
+                </div>
+                <div class="form-group" ng-if="user.id == 0">
+                    <label for="inputEmail" class="col-lg-3 control-label">Password Format Type</label>
+                    <div class="col-lg-8">
+                        <select class="form-control" ng-model="user.passwordFormatId" ng-required="true" name="passwordFormatId">
+                            <option ng-repeat="option in user.passwordFormatTypes" ng-value="{{option.value}}">{{option.text}}</option>
+                        </select>
+                        <span ng-messages="form.passwordFormatId.$error" class="help-block help-block-error">
+                            <ng-messages-include src="app/views/messages/messages_error.html"></ng-messages-include>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail" class="col-lg-3 control-label">Active</label>
+                    <div class="col-lg-8">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" ng-model="user.active">
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail" class="col-lg-3 control-label">Is System Account</label>
+                    <div class="col-lg-8">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" ng-model="user.isSystemAccount">
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button"
+                    ng-click="save()"
+                    ng-disabled="form.$invalid"
+                    class="btn btn-success">
+                Save
+            </button>
+            <button type="button"
+                    ng-click="cancel()"
+                    class="btn btn-danger"
+                    data-dismiss="modal">
+                Cancel
+            </button>
+
+            <div class="alert-danger" ng-if="error.length > 0 " ng-bind="error"></div>
+
+        </div>
+    </form>
+</div>

@@ -1,0 +1,69 @@
+﻿@{ 
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+
+    <!-- CSS (load bootstrap) -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+    <!-- JS (load angular, ui-router, and our custom js file) -->
+    <script src="//npmcdn.com/angular@1.6.5/angular.js"></script>
+    <script src="//npmcdn.com/@@uirouter/angularjs@1.0.5/release/angular-ui-router.js"></script>
+
+    <script src="/app/helloworld.js"></script>
+    <script src="/app/services/people.js"></script>
+    <script src="/app/components/hello.js"></script>
+    <script src="/app/components/people.js"></script>
+    <script src="/app/components/person.js"></script>
+    <style>
+        body {
+            font-family: Arial, helvetica, sans-serif;
+        }
+
+        .active {
+            color: red;
+            font-weight: bold;
+        }
+
+        .flex-h {
+            display: flex;
+            flex-flow: row nowrap;
+            align-items: flex-start;
+        }
+
+        .people {
+            width: 30%;
+        }
+
+            .people ul {
+                list-style: none;
+                padding: 0.1em 0;
+            }
+    </style>
+
+    <!-- Visualizer and url -->
+   
+
+    <script src="//unpkg.com/@@uirouter/visualizer@4.0.2"></script>
+</head>
+
+<body ng-app="helloworld">
+
+    <!-- NAVIGATION -->
+    <nav class="navbar navbar-inverse" role="navigation">
+        <ul class="nav navbar-nav">
+            <li><a ui-sref="hello" ui-sref-active="active">Hello</a></li>
+            <li><a ui-sref="about" ui-sref-active="active">About</a></li>
+            <li><a ui-sref="people" ui-sref-active="active">People</a></li>
+        </ul>
+    </nav>
+    <div><button onClick="document.location.reload(true)">Reload (without changing the url)</button></div>
+    <!-- MAIN CONTENT -->
+    <div class="container">
+        <div ui-view></div>
+    </div>
+
+</body>
+</html>

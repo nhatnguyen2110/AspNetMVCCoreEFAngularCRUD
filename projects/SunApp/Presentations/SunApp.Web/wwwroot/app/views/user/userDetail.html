@@ -1,0 +1,81 @@
+﻿
+<div class="form-horizontal">
+    <fieldset>
+        <legend>User Detail</legend>
+
+        <div class="col-lg-3">
+            <div>
+                <img ng-src="{{currentUser.imageUrl ? currentUser.imageUrl : 'img/default-image.png'}}"
+                     class="img-circle"
+                     alt='user image' />
+            </div>
+            <br />
+            <div class="text-center">
+                <button ng-click="uploadAvatar()" class="btn btn-info">Upload Avatar</button>
+            </div>
+        </div>
+
+        <div class="col-lg-8">
+            <div class="form-group">
+                <label for="inputEmail" class="col-lg-4 control-label">Full Name</label>
+                <div class="col-lg-7">
+                    <input type="text" class="form-control" ng-model="currentUser.fullName" disabled>
+                </div>
+                <div class="col-lg-1">
+                    <button ng-click="editUser()"
+                            ng-hide="currentUser == null"
+                            class="btn btn-primary">
+                        Edit
+                    </button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputEmail" class="col-lg-4 control-label">User Name</label>
+                <div class="col-lg-7">
+                    <input type="text" class="form-control" ng-model="currentUser.userName" disabled>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputEmail" class="col-lg-4 control-label">Email</label>
+                <div class="col-lg-7">
+                    <input type="text" class="form-control" ng-model="currentUser.email" disabled>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputEmail" class="col-lg-4 control-label">Active</label>
+                <div class="col-lg-7">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="currentUser.active" disabled>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputEmail" class="col-lg-4 control-label">Is System Account</label>
+                <div class="col-lg-7">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="currentUser.isSystemAccount" disabled>
+                        </label>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputEmail" class="col-lg-4 control-label">Password</label>
+                <div class="col-lg-7">
+                    <button class="btn btn-primary" ng-click="changePassword(currentUser.id)">Click to Change</button>
+
+                </div>
+            </div>
+
+        </div>
+
+    </fieldset>
+</div>
+
+<div ui-view></div>
+
+
+

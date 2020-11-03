@@ -1,0 +1,21 @@
+<div class="container-fluid" ng-show="!$state.includes('dashboard.users.detail')">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">User Management</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <button ng-click="addUser()" class="btn btn-default"><i class="fa fa-plus-circle"></i> Add New User</button>
+            <button ng-click="reloadUsers()" class="btn btn-primary"><i class="fa fa-refresh"></i> Refresh</button>
+        </div>
+        <div class="col-lg-12">
+            <table datatable="" dt-instance="dtInstance" dt-options="dtOptions" dt-columns="dtColumns" class="table table-striped table-bordered table-hover"></table>
+        </div>
+
+    </div>
+    
+</div>
+<div ui-view></div>
