@@ -1,0 +1,12 @@
+@import '../../@theme/styles/themes';
+
+@include nb-install-component() {
+  nb-card {
+    transform: translate3d(0, 0, 0);
+  }
+}
+input.search {
+  margin-bottom: 20px;
+  line-height: normal;
+  padding: .375rem .75rem;
+}

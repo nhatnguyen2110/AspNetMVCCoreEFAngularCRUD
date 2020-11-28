@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Reflection;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -74,7 +75,7 @@ namespace SunApp.Web.Controllers
                     IsSystemAccount = res.IsSystemAccount,
                     CreatedOnUtc = res.CreatedOnUtc,
                     PictureId = res.PictureId,
-                    ImageUrl = _pictureService.GetPictureUrl(res.PictureId, targetSize: 200, defaultPictureType: PictureType.Avatar)
+                    ImageUrl = this.ToFullUrl(_pictureService.GetPictureUrl(res.PictureId, targetSize: 200, defaultPictureType: PictureType.Avatar))
                 };
             }
             return null;
@@ -88,6 +89,7 @@ namespace SunApp.Web.Controllers
                 PasswordFormatTypes = this.GetEnumSelectList<PasswordFormat>()
             };
         }
+        
         [Route("api/user/save")]
         [HttpPost]
         public UserInfoModel Save(UserInfoModel user)
@@ -237,12 +239,14 @@ namespace SunApp.Web.Controllers
             {
                 KeyWord = searchValue,
                 PageSize = Convert.ToInt32("0" + length),
-                PageIndex = Convert.ToInt32("0" + start)/ Convert.ToInt32("0" + length),
+                PageIndex = Convert.ToInt32("0" + start) / Convert.ToInt32("0" + length),
                 SortBy = sortColumn.ToString(),
                 SortDirAcs = sortColumnDir.ToString() == "asc"
             };
             var res = _userService.GetAllUserInfos(userSearchModel);
-            return Json(new { draw = draw,
+            return Json(new
+            {
+                draw = draw,
                 recordsFiltered = res.TotalCount,
                 recordsTotal = res.TotalCount,
                 data = res.Select(x => new UserInfoModel()
@@ -256,6 +260,62 @@ namespace SunApp.Web.Controllers
                     CreatedOnUtc = x.CreatedOnUtc,
                     PictureId = x.PictureId,
                     ImageUrl = _pictureService.GetPictureUrl(x.PictureId, targetSize: 50, defaultPictureType: PictureType.Avatar)
+                }).ToList()
+            });
+        }
+        [Route("api/user/getlist")]
+        [HttpGet]
+        public IActionResult GetList()
+        {
+            //paging parameter
+            var pageIndex = Request.Query["_page"];
+            var length = Request.Query["_limit"];
+            //sorting parameter
+            var sortColumn = Request.Query["_sort"];
+            var sortColumnDir = Request.Query["_order"];
+            //filter parameter
+            var keyword = Request.Query["_keyword"];
+            var userSearchModel = new UserSearchModel()
+            {
+                KeyWord = keyword,
+                PageSize = Convert.ToInt32("0" + length),
+                PageIndex = Convert.ToInt32("0" + pageIndex) - 1,
+                SortBy = sortColumn.ToString(),
+                SortDirAcs = sortColumnDir.ToString().ToLower() == "asc"
+            };
+            foreach (PropertyInfo property in userSearchModel.GetType().GetProperties())
+            {
+                var pName = property.Name.ToLower() + "_like";
+                if (!String.IsNullOrEmpty(Request.Query[pName]))
+                {
+                    if (property.PropertyType == typeof(string))
+                    {
+                        property.SetValue(userSearchModel, Request.Query[pName].ToString());
+                    }
+                    else if (property.PropertyType == typeof(Boolean?) || property.PropertyType == typeof(Boolean))
+                    {
+                        property.SetValue(userSearchModel, Convert.ToBoolean(Request.Query[pName]));
+                    }
+
+                }
+            }
+            var res = _userService.GetAllUserInfos(userSearchModel);
+            return Json(new
+            {
+
+                recordsFiltered = res.TotalCount,
+                recordsTotal = res.TotalCount,
+                data = res.Select(x => new UserInfoModel()
+                {
+                    Id = x.Id,
+                    UserName = x.UserName,
+                    FullName = x.FullName,
+                    Email = x.Email,
+                    Active = x.Active,
+                    IsSystemAccount = x.IsSystemAccount,
+                    CreatedOnUtc = x.CreatedOnUtc,
+                    PictureId = x.PictureId,
+                    ImageUrl = this.ToFullUrl(_pictureService.GetPictureUrl(x.PictureId, targetSize: 50, defaultPictureType: PictureType.Avatar))
                 }).ToList()
             });
         }
@@ -277,19 +337,25 @@ namespace SunApp.Web.Controllers
                         new Claim(JwtRegisteredClaimNames.Sub, _userInfo.UserName),
                         new Claim(JwtRegisteredClaimNames.GivenName, _userInfo.FullName),
                         new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                        new Claim(JwtRegisteredClaimNames.Website, _pictureService.GetPictureUrl(_userInfo.PictureId,targetSize:50)),
+                        new Claim(JwtRegisteredClaimNames.Website, this.ToFullUrl(_pictureService.GetPictureUrl(_userInfo.PictureId,targetSize:50))),
                         new Claim(JwtRegisteredClaimNames.Email, _userInfo.Email)
                     };
                     //create token
+                    var expireToken = DateTime.UtcNow.AddMinutes(Constants.DefaultMinutesExpireToken);
+                    if (model.RememberMe)
+                    {
+                        expireToken = DateTime.UtcNow.AddMinutes(Constants.MinutesExpireTokenInRememberMe);
+                    }
                     var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Constants.SecretKey));
                     var signingCredentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256);
                     var jwtSecurityToken = new JwtSecurityToken(
                         issuer: HttpContext.Request.PathBase.Value,
                         audience: HttpContext.Request.PathBase.Value,
-                        expires: DateTime.UtcNow.AddMinutes(5),
+                        expires: expireToken,
                         signingCredentials: signingCredentials,
                         claims: claims
                         );
+                    
                     return Ok(new
                     {
                         Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken),
@@ -312,8 +378,8 @@ namespace SunApp.Web.Controllers
                 default:
                     return BadRequest("Unkonwn Error");
             }
-            
+
         }
-       
+
     }
 }

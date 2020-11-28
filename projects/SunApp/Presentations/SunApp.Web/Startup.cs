@@ -35,6 +35,7 @@ namespace SunApp.Web
         /// <param name="services">Collection of service descriptors</param>
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
             services.AddLogging(
             builder =>
             {
@@ -63,7 +64,14 @@ namespace SunApp.Web
             app.UseCookiePolicy();
 
             loggerFactory.AddLog4Net(); // log4net
-            
+
+            app.UseCors(builder =>
+            {
+                builder
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+            });
 
             app.UseMvc(routes =>
             {

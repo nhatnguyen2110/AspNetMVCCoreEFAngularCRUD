@@ -14,6 +14,17 @@ namespace SunApp.Web.Controllers
         {
             return (Enum.GetValues(typeof(T)).Cast<int>().Select(e => new SelectListItem() { Text = Enum.GetName(typeof(T), e), Value = e.ToString() })).ToList();
         }
-      
+        protected string ToFullUrl(string relativeUrl)
+        {
+            if (!relativeUrl.StartsWith('/'))
+            {
+                relativeUrl = "/" + relativeUrl;
+            }
+            return String.Format("{0}://{1}{2}",
+                (HttpContext.Request.IsHttps ? "https" : "http"),
+                HttpContext.Request.Host,
+                relativeUrl
+                );
+        }
     }
 }

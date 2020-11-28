@@ -1,0 +1,48 @@
+<div class="row" *ngIf="user">
+    <div class="col-md-6">
+        <nb-card>
+            <nb-card-header>Avatar</nb-card-header>
+            <nb-card-body>
+                <div class="text-center">
+                    <img [src]="user.imageUrl" class="img-circle" alt="{{user.fullName}}">
+                    
+                    <div style="margin-top:10px">
+                        <button (click)="onChangeAvatar()" type="button" nbButton status="info">Upload Avatar</button>
+                    </div>
+                </div>
+            </nb-card-body>
+        </nb-card>
+    </div>
+    <div class="col-md-6">
+        <nb-card>
+            <nb-card-header>User Detail</nb-card-header>
+            <nb-card-body>
+                <div class="form-group">
+                    <label class="label">Full Name</label>
+                    <input type="text" nbInput fullWidth readonly [(ngModel)]="user.fullName">
+                </div>
+                <div class="form-group">
+                    <label class="label">User Name</label>
+                    <input type="text" nbInput fullWidth readonly [(ngModel)]="user.userName">
+                </div>
+                <div class="form-group">
+                    <label class="label">Email</label>
+                    <input type="text" nbInput fullWidth readonly [(ngModel)]="user.email">
+                </div>
+                <div class="form-group">
+                    <nb-checkbox disabled [(ngModel)]="user.active">Active</nb-checkbox>
+                </div>
+                <div class="form-group">
+                    <nb-checkbox disabled [(ngModel)]="user.isSystemAccount">Is System Account</nb-checkbox>
+                </div>
+                <div class="form-group">
+                    <label class="label">Password</label>&nbsp;
+                    <button (click)="onChangePassword()" type="button" nbButton status="primary">Click to Change</button>
+                </div>
+                <button (click)="onEdit()" type="button" nbButton status="primary">Edit</button>&nbsp;
+                <a nbButton status="success" [routerLink]="['../../']">Back to List</a>
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>
+

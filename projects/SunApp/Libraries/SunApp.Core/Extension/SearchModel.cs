@@ -16,6 +16,9 @@ namespace SunApp.Core.Extension
         public string KeyWord { get; set; }
         public DateTime? CreatedFromUtc { get; set; }
         public DateTime? CreatedToUtc { get; set; }
+        /// <summary>
+        /// Start from 0
+        /// </summary>
         public int PageIndex { get; set; }
         public int PageSize { get; set; }
         public string SortBy { get; set; }

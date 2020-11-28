@@ -44,7 +44,7 @@ namespace SunApp.Web.Controllers
                 ? Request.Form[qqFileNameParameter].ToString()
                 : string.Empty;
 
-            var picture = _pictureService.InsertPicture(httpPostedFile, qqFileName);
+            var picture = _pictureService.InsertPicture(httpPostedFile, qqFileName.Replace(' ', '_'));
 
             //when returning JSON the mime-type must be set to text/plain
             //otherwise some browsers will pop-up a "Save As" dialog.
@@ -52,7 +52,7 @@ namespace SunApp.Web.Controllers
             {
                 success = true,
                 pictureId = picture.Id,
-                imageUrl = _pictureService.GetPictureUrl(picture, 100)
+                imageUrl = this.ToFullUrl( _pictureService.GetPictureUrl(picture, 200))
             });
         }
         [HttpDelete]
@@ -69,7 +69,7 @@ namespace SunApp.Web.Controllers
             {
                 success = true,
                 pictureId = 0,
-                imageUrl = _pictureService.GetDefaultPictureUrl(targetSize:200)
+                imageUrl = this.ToFullUrl(_pictureService.GetDefaultPictureUrl(targetSize:200))
             });
         }
         public IActionResult Detail(int id)

@@ -69,6 +69,10 @@ namespace SunApp.Service.Users
             {
                 query = query.Where(x => x.FullName.Contains(userSearchModel.FullName));
             }
+            if (!string.IsNullOrWhiteSpace(userSearchModel.Email))
+            {
+                query = query.Where(x => x.Email.Contains(userSearchModel.Email));
+            }
             if (!string.IsNullOrWhiteSpace(userSearchModel.KeyWord))
             {
                 query = query.Where(x => x.FullName.Contains(userSearchModel.KeyWord)

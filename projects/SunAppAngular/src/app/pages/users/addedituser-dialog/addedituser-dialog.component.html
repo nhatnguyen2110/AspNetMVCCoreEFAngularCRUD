@@ -1,0 +1,65 @@
+<nb-card>
+  <nb-card-header>{{ title }}</nb-card-header>
+  <nb-card-body>
+    <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="inputFullName" class="label">Full Name</label>
+        <input type="text" nbInput fullWidth id="inputFullName" placeholder="Full Name" formControlName="fullName"  [class.has-danger]="f.fullName.invalid">
+       
+        <p class="caption status-danger" *ngIf="f.fullName.errors?.required">
+          Full Name is required
+        </p>
+      </div>
+      <div class="form-group">
+        <label for="inputUserName" class="label">User Name</label>
+        <input type="text" nbInput fullWidth id="inputUserName" placeholder="User Name" formControlName="userName">
+        <p class="caption status-danger" *ngIf="f.userName.errors?.required">
+          User Name is required
+        </p>
+        <p class="caption status-danger" *ngIf="f.userName.errors?.checkExistedUserName">
+          User Name is used by another account.
+        </p>
+      </div>
+      <div class="form-group">
+        <label for="inputEmail" class="label">Email</label>
+        <input type="email" nbInput fullWidth id="inputEmail" placeholder="Email" formControlName="email">
+        <p class="caption status-danger" *ngIf="f.email.errors?.required">
+          Email is required
+        </p>
+        <p class="caption status-danger" *ngIf="f.email.errors?.email">
+          Invalid email
+        </p>
+      </div>
+      <div class="form-group" *ngIf="user.id ===0">
+        <label for="inputPassword" class="label">Password</label>
+        <input type="password" nbInput fullWidth id="inputPassword" placeholder="Password" formControlName="password">
+        <p class="caption status-danger" *ngIf="f.password.errors?.required">
+          Password is required
+        </p>
+        <p class="caption status-danger" *ngIf="f.password.errors?.pattern">
+          Password should be at least 6 characters long and should contain one number,one character and one special character
+        </p>
+      </div>
+      <div class="form-group" *ngIf="user.id ===0">
+        <label class="label">Password Format Type</label><br />
+        <nb-select formControlName="passwordFormatId">
+          <nb-option *ngFor="let p of user.passwordFormatTypes" [value]="p.value">{{p.text}}</nb-option>
+        </nb-select>
+        <!-- <p class="caption status-danger" *ngIf="f.passwordFormatId.errors?.required">
+            Password Format Type is required
+          </p> -->
+      </div>
+      <div class="form-group">
+        <nb-checkbox formControlName="active">Active</nb-checkbox>
+
+      </div>
+      <div class="form-group">
+        <nb-checkbox formControlName="isSystemAccount">Is System Account</nb-checkbox>
+
+      </div>
+      <button type="submit" nbButton status="primary" [disabled]="!userForm.valid || submitted">Save Changes</button>&nbsp;
+      <button nbButton hero status="primary" (click)="dismiss()">Close</button>
+    </form>
+  </nb-card-body>
+
+</nb-card>

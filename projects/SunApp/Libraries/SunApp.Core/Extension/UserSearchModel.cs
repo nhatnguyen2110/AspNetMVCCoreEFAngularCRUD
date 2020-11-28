@@ -10,6 +10,6 @@ namespace SunApp.Core.Extension
         public string FullName { get; set; }
         public bool? Active { get; set; }
         public bool? IsSystemAccount { get; set; }
-        
+        public string Email { get; set; }
     }
 }
