@@ -57,8 +57,6 @@
     },
     "space-before-function-paren": {
       "options": {
-        "anonymous": "never",
-        "asyncArrow": "always",
         "constructor": "never"
       }
     },
