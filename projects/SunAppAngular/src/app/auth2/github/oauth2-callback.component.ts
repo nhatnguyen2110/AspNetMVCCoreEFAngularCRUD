@@ -18,7 +18,7 @@ export class GithubOAuth2CallbackComponent implements OnDestroy {
     this.authService.authenticate('github')
       .pipe(takeUntil(this.destroy$))
       .subscribe((authResult: NbAuthResult) => {
-        console.log('authResult',authResult)
+        
         if (authResult.isSuccess() && authResult.getRedirect()) {
           this.router.navigateByUrl(authResult.getRedirect());
         }

@@ -1,6 +1,6 @@
 import { Injectable, ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NbAuthJWTToken, NbAuthModule, NbAuthOAuth2Token, NbAuthSimpleToken, NbAuthStrategyClass, NbDummyAuthStrategy, NbOAuth2AuthStrategy, NbOAuth2AuthStrategyOptions, NbOAuth2ResponseType, NbPasswordAuthStrategy } from '@nebular/auth';
+import { NbAuthJWTToken, NbAuthModule, NbAuthStrategyClass, NbOAuth2AuthStrategy, NbOAuth2AuthStrategyOptions, NbOAuth2ResponseType, NbPasswordAuthStrategy } from '@nebular/auth';
 import { NbSecurityModule, NbRoleProvider } from '@nebular/security';
 import { of as observableOf } from 'rxjs';
 

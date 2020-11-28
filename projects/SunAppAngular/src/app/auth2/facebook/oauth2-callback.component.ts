@@ -28,11 +28,11 @@ export class FacebookOAuth2CallbackComponent implements OnDestroy {
     this.authService.onTokenChange()
       .subscribe((token: NbAuthJWTToken) => {
         if (token.isValid()) {
-          const _token = token.getPayload(); // here we receive a payload from the token and assigns it to our `user` variable                          
-          console.log("access token", _token.access_token);
+          const loadToken = token.getPayload(); // here we receive a payload from the token and assigns it to our `user` variable                          
+          console.log("access token", loadToken.access_token);
 
           this.serverHttp.getPureHttpRequest("https://graph.facebook.com/me",
-            { fields: "id,name,picture,email", access_token: _token.access_token }
+            { fields: "id,name,picture,email", access_token: loadToken.access_token }
             , null
           ).subscribe(data => {
             console.log('facebook response', data);

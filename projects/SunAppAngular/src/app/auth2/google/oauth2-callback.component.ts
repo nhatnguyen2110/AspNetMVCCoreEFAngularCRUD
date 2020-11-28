@@ -31,13 +31,13 @@ export class GoogleOAuth2CallbackComponent implements OnDestroy {
     this.authService.onTokenChange()
       .subscribe((token: NbAuthJWTToken) => {
         if (token.isValid()) {
-          const _token = token.getPayload(); // here we receive a payload from the token and assigns it to our `user` variable                          
-          console.log("access token", _token.access_token);
+          const loadToken = token.getPayload(); // here we receive a payload from the token and assigns it to our `user` variable                          
+          console.log("access token", loadToken.access_token);
 
-          this.serverHttp.getPureHttpRequest("https://www.googleapis.com/oauth2/v3/userinfo?access_token=" + _token.access_token, null, null
+          this.serverHttp.getPureHttpRequest("https://www.googleapis.com/oauth2/v3/userinfo?access_token=" + loadToken.access_token, null, null
           ).subscribe(data => {
             console.log('google response', data);
-          })
+          });
         }
 
       });

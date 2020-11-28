@@ -48,29 +48,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private userService: UserData,
     private layoutService: LayoutService,
     private breakpointService: NbMediaBreakpointsService,
-    private commonService: CommonService,
-    private authService: NbAuthService) {
-    // this.authService.onTokenChange()
-    //   .subscribe((token: NbAuthJWTToken) => {
-    //     if (token.isValid()) {
-    //       let _user = token.getPayload(); // here we receive a payload from the token and assigns it to our `user` variable 
-    //       this.user = {
-    //         name: _user.givename,
-    //         picture: _user.website
-    //       }
-    //       console.log("_user",_user);
-    //       console.log("expired token",token.getTokenExpDate());
-    //       // console.log("picture url",_user.website);
-    //       console.log("token",token);
-    //     }
-
-    //   });
+    private commonService: CommonService,) {
+   
   }
 
   ngOnInit() {
     this.currentTheme = this.themeService.currentTheme;
     //subscribe userinfo
-    this.commonService.userInfo$.subscribe(info=>{
+    this.commonService.userInfo$.subscribe(info => {
       this.user = info;
     })
     // if(!this.user)
@@ -79,7 +64,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     //   .pipe(takeUntil(this.destroy$))
     //   .subscribe((users: any) => this.user = users.nick);
     // }
-    
+
     const { xl } = this.breakpointService.getBreakpointsMap();
     this.themeService.onMediaQueryChange()
       .pipe(
