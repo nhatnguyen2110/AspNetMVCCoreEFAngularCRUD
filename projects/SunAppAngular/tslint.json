@@ -59,7 +59,7 @@
       "options": {
         "anonymous": "never",
         "asyncArrow": "always",
-        "constructor": "never",
+        "constructor": "never"
       }
     },
     "typedef-whitespace": {
