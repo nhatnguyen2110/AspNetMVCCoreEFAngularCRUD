@@ -129,10 +129,10 @@ export const NB_CORE_PROVIDERS = [
       //   delay: 1000
       // }),
       NbPasswordAuthStrategy.setup({
-        name: "email",
-        baseEndpoint: "http://localhost:57467/",
+        name: 'email',
+        baseEndpoint: 'http://localhost:57467/',
         login: {
-          endpoint: "api/authenticate",
+          endpoint: 'api/authenticate',
           method: 'post',
           redirect: {
             success: '/pages/dashboard',
@@ -142,7 +142,7 @@ export const NB_CORE_PROVIDERS = [
         },
         token: {
           class: NbAuthJWTToken,
-          key: "token"
+          key: 'token'
         },
         errors: {
           getter: (module, res, options) => {
@@ -200,7 +200,7 @@ export const NB_CORE_PROVIDERS = [
   }).providers,
   NbGoogleOAuth2Strategy,
   NbFacebookOAuth2Strategy,
-  //NbGithubOAuth2Strategy,
+  // NbGithubOAuth2Strategy,
   NbSecurityModule.forRoot({
     accessControl: {
       guest: {

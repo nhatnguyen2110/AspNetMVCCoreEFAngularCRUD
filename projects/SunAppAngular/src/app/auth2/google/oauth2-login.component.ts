@@ -4,7 +4,7 @@ import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
 @Component({
-  selector: 'nb-oauth2-login',
+  selector: 'ngx-oauth2-login',
   template: `
       <h3>Redirecting...</h3>
     `,
