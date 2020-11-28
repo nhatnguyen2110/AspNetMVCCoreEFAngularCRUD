@@ -41,10 +41,8 @@ export class ChangeAvatarDialogComponent {
                 allowedExtensions: ['jpeg', 'jpg', 'png', 'gif', 'svg'],
                 sizeLimit: 10000000 // 50 kB = 50 * 1024 bytes
             },
-            callbacks: {
-                onSubmit: function (id, fileName) {
-
-                },
+            callbacks:
+            {
                 onComplete: function (id, name, responseJSON, maybeXhr) {
                     //console.log('complete', responseJSON);
                     if (responseJSON.success) {
@@ -54,14 +52,14 @@ export class ChangeAvatarDialogComponent {
                     else {
                         componentInstance.showToast('danger', 'Error', responseJSON.message);
                     }
-                },
-                onDeleteComplete: function (id, xhr, isError) {
+                }
+                ,onDeleteComplete: function (id, xhr, isError) {
                     if (!isError) {
                         componentInstance.pictureId = 0;
                         componentInstance.imageUrl = "";
                     }
-                },
-                onError: function (id, name, reason, maybeXhrOrXdr) {
+                }
+                ,onError: function (id, name, reason, maybeXhrOrXdr) {
                     componentInstance.showToast('danger', 'Error', reason);
                 }
             }

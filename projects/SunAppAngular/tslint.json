@@ -5,7 +5,7 @@
   ],
   "rules": {
     "array-type": false,
-    "arrow-return-shorthand": true,
+    "arrow-return-shorthand": false,
     "curly": false,
     "deprecation": {
       "severity": "warning"
@@ -60,7 +60,6 @@
         "anonymous": "never",
         "asyncArrow": "always",
         "constructor": "never",
-        "named": "never"
       }
     },
     "typedef-whitespace": {
