@@ -15,7 +15,7 @@ export class CustomServerDataSource extends ServerDataSource {
   }
 
   protected requestElements(): Observable<any> {
-    let httpParams = this.createRequesParams();
+    const httpParams = this.createRequesParams();
     return this.http.get(this.conf.endPoint, { params: httpParams, headers: this.httpHeaders, observe: 'response' });
   }
 }

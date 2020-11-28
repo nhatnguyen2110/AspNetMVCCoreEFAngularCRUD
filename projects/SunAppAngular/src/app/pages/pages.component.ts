@@ -25,52 +25,52 @@ export class PagesComponent {
   constructor(
     private authService: NbAuthService,
     private commonService: CommonService,
-    private serverHttp: HttpServerService){
+    private serverHttp: HttpServerService) {
 
   }
   ngOnInit() {
-    if(!this.commonService.userInfo){
+    if (!this.commonService.userInfo) {
       this.authService.onTokenChange()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((token: NbAuthOAuth2Token) => {
-        console.log('token',token);
-        if (token && token.isValid()) {
-          let _tkLoad = token.getPayload();
-          if(token.getOwnerStrategyName() == "email"){
-            let user =  {
-              name: _tkLoad.givename,
-              picture: _tkLoad.website
-            } as UserInfo;
-            this.commonService.setUserInfo(user);
-          }
-          else if(token.getOwnerStrategyName() == "facebook"){
-            this.serverHttp.getPureHttpRequest("https://graph.facebook.com/me",
-            {
-              fields:"id,name,picture,email", 
-              access_token: _tkLoad.access_token
-            }
-            ,null).subscribe(data=>{
-              let user =  {
-                name: data.name,
-                picture: data.picture?.data.url
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((token: NbAuthOAuth2Token) => {
+          console.log('token', token);
+          if (token && token.isValid()) {
+            const loadToken = token.getPayload();
+            if (token.getOwnerStrategyName() === "email") {
+              const user = {
+                name: loadToken.givename,
+                picture: loadToken.website
               } as UserInfo;
               this.commonService.setUserInfo(user);
-            });
+            }
+            else if (token.getOwnerStrategyName() === "facebook") {
+              this.serverHttp.getPureHttpRequest("https://graph.facebook.com/me",
+                {
+                  fields: "id,name,picture,email",
+                  access_token: loadToken.access_token
+                }
+                , null).subscribe(data => {
+                  const user = {
+                    name: data.name,
+                    picture: data.picture?.data.url
+                  } as UserInfo;
+                  this.commonService.setUserInfo(user);
+                });
+            }
+            else if (token.getOwnerStrategyName() === "google") {
+              this.serverHttp.getPureHttpRequest("https://www.googleapis.com/oauth2/v3/userinfo",
+                { access_token: loadToken.access_token }
+                , null
+              ).subscribe(data => {
+                const user = {
+                  name: data.name,
+                  picture: data.picture
+                } as UserInfo;
+                this.commonService.setUserInfo(user);
+              })
+            }
           }
-          else if(token.getOwnerStrategyName() == "google"){
-            this.serverHttp.getPureHttpRequest("https://www.googleapis.com/oauth2/v3/userinfo",
-            {access_token: _tkLoad.access_token}
-            ,null
-          ).subscribe(data=>{
-            let user =  {
-              name: data.name,
-              picture: data.picture
-            } as UserInfo;
-            this.commonService.setUserInfo(user);
-          })
-          }
-        }
-      });
+        });
     }
   }
   ngOnDestroy(): void {

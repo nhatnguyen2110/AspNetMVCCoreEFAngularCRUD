@@ -36,7 +36,7 @@ export class FacebookOAuth2CallbackComponent implements OnDestroy {
             , null
           ).subscribe(data => {
             console.log('facebook response', data);
-          })
+          });
         }
 
       });

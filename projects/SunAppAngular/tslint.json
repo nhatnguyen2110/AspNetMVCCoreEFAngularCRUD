@@ -4,15 +4,9 @@
     "codelyzer"
   ],
   "rules": {
-    "align": {
-      "options": [
-        "parameters",
-        "statements"
-      ]
-    },
     "array-type": false,
     "arrow-return-shorthand": true,
-    "curly": true,
+    "curly": false,
     "deprecation": {
       "severity": "warning"
     },
@@ -29,7 +23,7 @@
     },
     "max-classes-per-file": false,
     "max-line-length": [
-      true,
+      false,
       {
         "limit": 140, 
         "ignore-pattern": "^import [^,]+ from |^export | implements"
@@ -49,7 +43,7 @@
       "ignore-params"
     ],
     "no-non-null-assertion": true,
-    "no-redundant-jsdoc": true,
+    "no-redundant-jsdoc": false,
     "no-switch-case-fall-through": true,
     "no-var-requires": false,
     "quotemark": [
@@ -66,7 +60,6 @@
         "anonymous": "never",
         "asyncArrow": "always",
         "constructor": "never",
-        "method": "never",
         "named": "never"
       }
     },
@@ -95,16 +88,14 @@
         "allow-pascal-case"
       ]
     },
-    "whitespace": {
-      "options": [
-        "check-branch",
-        "check-decl",
-        "check-operator",
-        "check-separator",
-        "check-type",
-        "check-typecast"
-      ]
-    },
+    "jsdoc-format": false,
+    "object-literal-shorthand": false,
+    "no-string-literal": false,
+    "only-arrow-functions": false,
+    "new-parens": false,
+    "ban-types": false,
+    "comment-format": false,
+    "no-trailing-whitespace":false,
     "component-class-suffix": true,
     "contextual-lifecycle": true,
     "directive-class-suffix": true,
@@ -112,7 +103,7 @@
     "no-host-metadata-property": false,
     "no-input-rename": true,
     "no-inputs-metadata-property": true,
-    "no-output-native": true,
+    "no-output-native": false,
     "no-output-on-prefix": true,
     "no-output-rename": true,
     "no-outputs-metadata-property": true,
