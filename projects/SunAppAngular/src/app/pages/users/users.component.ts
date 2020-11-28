@@ -139,7 +139,7 @@ export class UsersComponent {
       this.serverHttp.postHttpRequest("api/user/delete/" + event.data.id, null).subscribe(data => {
         this.source.remove(event.data);
         this.showToast("success", "Success", "Delete successfully");
-      })
+      });
     }
 
   }

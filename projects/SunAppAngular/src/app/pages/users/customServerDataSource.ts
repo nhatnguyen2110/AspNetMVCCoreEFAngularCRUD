@@ -8,10 +8,10 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class CustomServerDataSource extends ServerDataSource {
 
-  httpHeaders: HttpHeaders
+  httpHeaders: HttpHeaders;
   constructor(protected http: HttpClient, headers: HttpHeaders, conf: ServerSourceConf | {} = {}) {
     super(http, conf);
-    this.httpHeaders = headers
+    this.httpHeaders = headers;
   }
 
   protected requestElements(): Observable<any> {

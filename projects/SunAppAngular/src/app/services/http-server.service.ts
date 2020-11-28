@@ -39,18 +39,18 @@ export class HttpServerService {
     const url = `${this.REST_API_SERVER}/${methodName}`;
     return this.httpClient
       .get<any>(url, { params: data, headers: this.httpGetOptions.headers })
-      .pipe(catchError(this.handleError))
+      .pipe(catchError(this.handleError));
   }
   public postHttpRequest(methodName: string, data): Observable<any> {
     const url = `${this.REST_API_SERVER}/${methodName}`;
     return this.httpClient
       .post<any>(url, new HttpParams({fromObject: data}).toString(), this.httpPostOptions)
-      .pipe(catchError(this.handleError))
+      .pipe(catchError(this.handleError));
    
   }
   public getPureHttpRequest(url: string, data, header): Observable<any> {
     return this.httpClient
       .get<any>(url, { params: data, headers: header })
-      .pipe(catchError(this.handleError))
+      .pipe(catchError(this.handleError));
   }
 }

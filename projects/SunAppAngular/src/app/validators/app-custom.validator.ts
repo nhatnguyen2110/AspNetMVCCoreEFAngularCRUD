@@ -23,6 +23,6 @@ import { FormGroup } from '@angular/forms';
           } else {
             confirmPasswordControl.setErrors(null);
           }
-        }
+        };
       }
   }

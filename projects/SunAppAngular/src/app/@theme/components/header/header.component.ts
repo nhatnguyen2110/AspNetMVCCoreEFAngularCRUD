@@ -58,7 +58,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     //subscribe userinfo
     this.commonService.userInfo$.subscribe(info => {
       this.user = info;
-    })
+    });
     // if(!this.user)
     // {
     //   this.userService.getUsers()

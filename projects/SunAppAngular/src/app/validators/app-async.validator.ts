@@ -26,6 +26,6 @@ export class AppAsyncValidators {
                     return resolve(null);
                 }
             });
-        }
+        };
     }
 }  

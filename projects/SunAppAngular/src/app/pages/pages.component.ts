@@ -67,7 +67,7 @@ export class PagesComponent {
                   picture: data.picture
                 } as UserInfo;
                 this.commonService.setUserInfo(user);
-              })
+              });
             }
           }
         });
